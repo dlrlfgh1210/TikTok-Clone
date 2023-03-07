@@ -2,10 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tiktok/constants/gaps.dart';
 import 'package:flutter_tiktok/constants/sizes.dart';
+import 'package:flutter_tiktok/features/main_navigation/main_navigation_screen.dart';
 
-enum Direction {right, left}
+enum Direction { right, left }
 
-enum Page {first, second}
+enum Page { first, second }
 
 class TutorialScreen extends StatefulWidget {
   const TutorialScreen({super.key});
@@ -31,7 +32,7 @@ class _TutorialScreenState extends State<TutorialScreen> {
   }
 
   void _onPanEnd(DragEndDetails detail) {
-    if(_direction == Direction.left) {
+    if (_direction == Direction.left) {
       setState(() {
         _showingPage = Page.second;
       });
@@ -40,6 +41,15 @@ class _TutorialScreenState extends State<TutorialScreen> {
         _showingPage = Page.first;
       });
     }
+  }
+
+  void _onEnterAppTap() {
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(
+        builder: (context) => const MainNavigationScreen(),
+      ),
+      (route) => false,
+    );
   }
 
   @override
@@ -70,8 +80,8 @@ class _TutorialScreenState extends State<TutorialScreen> {
                         fontSize: Sizes.size20,
                       ),
                     )
-                ]),
-                  secondChild: const Column(
+                  ]),
+              secondChild: const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Gaps.v80,
@@ -99,19 +109,19 @@ class _TutorialScreenState extends State<TutorialScreen> {
         ),
         bottomNavigationBar: BottomAppBar(
           child: Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: Sizes.size24,
-              horizontal: Sizes.size24,
-            ),
-            child: AnimatedOpacity(
-              duration: const Duration(milliseconds: 300),
-              opacity: _showingPage == Page.first ? 0: 1,
-              child: CupertinoButton(
-                onPressed: () {},
-                color: Theme.of(context).primaryColor,
-                child: const Text('Enter the app!'),
+              padding: const EdgeInsets.symmetric(
+                vertical: Sizes.size24,
+                horizontal: Sizes.size24,
               ),
-            )),
+              child: AnimatedOpacity(
+                duration: const Duration(milliseconds: 300),
+                opacity: _showingPage == Page.first ? 0 : 1,
+                child: CupertinoButton(
+                  onPressed: _onEnterAppTap,
+                  color: Theme.of(context).primaryColor,
+                  child: const Text('Enter the app!'),
+                ),
+              )),
         ),
       ),
     );
