@@ -15,7 +15,8 @@ class VideoPost extends StatefulWidget {
 
 class _VideoPostState extends State<VideoPost> {
   final VideoPlayerController _videoPlayerController =
-      VideoPlayerController.asset("assets/kakaotalk.mp4");
+
+  VideoPlayerController.asset("assets/kakaotalk.mp4");
 
   void _onVideoChange() {
     if(_videoPlayerController.value.isInitialized) {
