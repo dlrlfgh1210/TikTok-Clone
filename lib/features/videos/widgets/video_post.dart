@@ -80,11 +80,9 @@ class _VideoPostState extends State<VideoPost>
       _videoPlayerController.play();
     }
     // 화면에 안 보이면 동영상이 멈추게 함
-    if(_videoPlayerController.value.isPlaying &&
-    info.visibleFraction == 0) {
+    if (_videoPlayerController.value.isPlaying && info.visibleFraction == 0) {
       _onTogglePause();
     }
-
   }
 
   void _onTogglePause() {
@@ -191,7 +189,7 @@ class _VideoPostState extends State<VideoPost>
                   backgroundColor: Colors.black,
                   foregroundColor: Colors.white,
                   foregroundImage: AssetImage(
-                    "assets/jamin.jpg",
+                    "assets/images/jamin.jpg",
                   ),
                   child: Text("기로"),
                 ),
