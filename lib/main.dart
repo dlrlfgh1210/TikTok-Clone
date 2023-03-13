@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tiktok/constants/sizes.dart';
-import 'package:flutter_tiktok/features/authentication/sign_up_screen.dart';
-import 'package:flutter_tiktok/features/discover/discover_screen.dart';
 import 'package:flutter_tiktok/features/main_navigation/main_navigation_screen.dart';
 
 void main() {

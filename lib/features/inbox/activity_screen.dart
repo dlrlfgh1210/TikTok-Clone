@@ -56,10 +56,9 @@ class _ActivityScreenState extends State<ActivityScreen>
     end: Offset.zero,
   ).animate(_animationController);
 
-  late final Animation<Color?> _barrierAnimation = ColorTween(
-    begin: Colors.transparent,
-    end: Colors.black38
-  ).animate(_animationController);
+  late final Animation<Color?> _barrierAnimation =
+      ColorTween(begin: Colors.transparent, end: Colors.black38)
+          .animate(_animationController);
 
   void _onDismissed(String notification) {
     _notifications.remove(notification);
@@ -85,9 +84,12 @@ class _ActivityScreenState extends State<ActivityScreen>
           title: GestureDetector(
         onTap: _toggleAnimations,
         child: Row(
+          mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text("All activity"),
+            const Text(
+              "All activity",
+            ),
             Gaps.h2,
             RotationTransition(
               turns: _arrowAnimation,
@@ -201,11 +203,11 @@ class _ActivityScreenState extends State<ActivityScreen>
                 )
             ],
           ),
-          if(_showBarrier)
+          if (_showBarrier)
             AnimatedModalBarrier(
-                color: _barrierAnimation,
-            dismissible: true,
-            onDismiss: _toggleAnimations,
+              color: _barrierAnimation,
+              dismissible: true,
+              onDismiss: _toggleAnimations,
             ),
           SlideTransition(
             position: _panelAnimation,
