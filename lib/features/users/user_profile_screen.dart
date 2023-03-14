@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tiktok/constants/gaps.dart';
 import 'package:flutter_tiktok/constants/sizes.dart';
+import 'package:flutter_tiktok/features/settings/settings_screen.dart';
 import 'package:flutter_tiktok/features/users/widgets/persistent_tab_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -12,6 +13,15 @@ class UserProfileScreen extends StatefulWidget {
 }
 
 class _UserProfileScreenState extends State<UserProfileScreen> {
+  void _onGearPressed() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const SettingsScreen(),
+      ),
+    );
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -24,7 +34,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 title: const Text('기로'),
                 actions: [
                   IconButton(
-                    onPressed: () {},
+                    onPressed: _onGearPressed,
                     icon: const FaIcon(
                       FontAwesomeIcons.gear,
                       size: Sizes.size20,
