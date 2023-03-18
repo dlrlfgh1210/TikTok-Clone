@@ -46,9 +46,9 @@ class _ChatDetailScreen extends State<ChatDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade100,
+      /*backgroundColor: Colors.grey.shade100,*/
       appBar: AppBar(
-        backgroundColor: Colors.grey.shade100,
+        /*backgroundColor: Colors.grey.shade100,*/
         title: ListTile(
           contentPadding: EdgeInsets.zero,
           horizontalTitleGap: Sizes.size8,
