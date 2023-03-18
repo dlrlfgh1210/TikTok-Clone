@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tiktok/constants/gaps.dart';
 import 'package:flutter_tiktok/constants/sizes.dart';
+import 'package:flutter_tiktok/utils.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ChatDetailScreen extends StatefulWidget {
@@ -59,7 +60,7 @@ class _ChatDetailScreen extends State<ChatDetailScreen> {
                 radius: Sizes.size24,
                 foregroundImage: AssetImage(
                     "assets/images/jamin.jpg"),
-                child: Text("pengsoo"),
+                /*child: Text("pengsoo"),*/
               ),
               SizedBox(
                 height: Sizes.size16,
@@ -149,9 +150,8 @@ class _ChatDetailScreen extends State<ChatDetailScreen> {
             Positioned(
               bottom: 0,
               width: MediaQuery.of(context).size.width,
-              child: BottomAppBar(
-                elevation: 0,
-                color: Colors.grey.shade100,
+              child: Container(
+                color: isDarkMode(context) ? Colors.black : Colors.grey.shade100,
                 child: Row(
                   children: [
                     Expanded(
