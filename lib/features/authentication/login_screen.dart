@@ -5,12 +5,14 @@ import 'package:flutter_tiktok/features/authentication/login_form_screen.dart';
 import 'package:flutter_tiktok/features/authentication/widgets/auth_button.dart';
 import 'package:flutter_tiktok/utils.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 
 class LoginScreen extends StatelessWidget {
+  static String routeName = "/login";
   const LoginScreen({super.key});
 
   void _onSignUpTap(BuildContext context) {
-    Navigator.of(context).pop("Hello!");
+    context.pop();
   }
 
   void _onEmailLoginTap(BuildContext context) {
