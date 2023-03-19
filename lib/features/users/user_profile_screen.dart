@@ -7,7 +7,13 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class UserProfileScreen extends StatefulWidget {
   final String username;
-  const UserProfileScreen({super.key, required this.username});
+  final String tab;
+
+  const UserProfileScreen({
+    super.key,
+    required this.username,
+    required this.tab,
+  });
 
   @override
   State<UserProfileScreen> createState() => _UserProfileScreenState();
@@ -22,13 +28,13 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
       body: SafeArea(
         child: DefaultTabController(
+          initialIndex: widget.tab == "likes" ? 1 : 0,
           length: 2,
           child: NestedScrollView(
             headerSliverBuilder: (context, innerBoxIsScrolled) {
@@ -157,9 +163,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                             vertical: Sizes.size12,
                           ),
                           decoration: BoxDecoration(
-                            color: Theme
-                                .of(context)
-                                .primaryColor,
+                            color: Theme.of(context).primaryColor,
                             borderRadius: const BorderRadius.all(
                               Radius.circular(Sizes.size4),
                             ),
@@ -211,37 +215,36 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 ),
               ];
             },
-                      body: TabBarView(
-                        children: [
-                          GridView.builder(
-                            itemCount: 20,
-                            padding: EdgeInsets.zero,
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 3,
-                              crossAxisSpacing: Sizes.size2,
-                              mainAxisSpacing: Sizes.size2,
-                              childAspectRatio: 9 / 14,
-                            ),
-                            itemBuilder: (context, index) => Column(
-                              children: [
-                                AspectRatio(
-                                    aspectRatio: 9 / 14,
-                                    child: FadeInImage.assetNetwork(
-                                      fit: BoxFit.cover,
-                                      placeholder: "assets/images/jamin.jpg",
-                                      image:
-                                      "https://images.unsplash.com/photo-1673844969019-c99b0c933e90?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80",
-                                    ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          const Center(
-                            child: Text('Page two'),
-                          ),
-                        ],
+            body: TabBarView(
+              children: [
+                GridView.builder(
+                  itemCount: 20,
+                  padding: EdgeInsets.zero,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    crossAxisSpacing: Sizes.size2,
+                    mainAxisSpacing: Sizes.size2,
+                    childAspectRatio: 9 / 14,
+                  ),
+                  itemBuilder: (context, index) => Column(
+                    children: [
+                      AspectRatio(
+                        aspectRatio: 9 / 14,
+                        child: FadeInImage.assetNetwork(
+                          fit: BoxFit.cover,
+                          placeholder: "assets/images/jamin.jpg",
+                          image:
+                              "https://images.unsplash.com/photo-1673844969019-c99b0c933e90?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80",
+                        ),
                       ),
+                    ],
+                  ),
+                ),
+                const Center(
+                  child: Text('Page two'),
+                ),
+              ],
+            ),
           ),
         ),
       ),
