@@ -28,9 +28,11 @@ class _VideoPreviewScreenState extends State<VideoPreviewScreen> {
     _videoPlayerController = VideoPlayerController.file(
       File(widget.video.path),
     );
+
     await _videoPlayerController.initialize();
     await _videoPlayerController.setLooping(true);
     await _videoPlayerController.play();
+
     setState(() {});
   }
 
@@ -38,6 +40,12 @@ class _VideoPreviewScreenState extends State<VideoPreviewScreen> {
   void initState() {
     super.initState();
     _initVideo();
+  }
+
+  @override
+  void dispose() {
+    _videoPlayerController.dispose();
+    super.dispose();
   }
 
   Future<void> _saveToGallery() async {
