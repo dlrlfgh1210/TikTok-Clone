@@ -5,6 +5,9 @@ import 'package:flutter_tiktok/utils.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ActivityScreen extends StatefulWidget {
+  static const String routeName = "activity";
+  static const String routeURL = "/activity";
+
   const ActivityScreen({super.key});
 
   @override

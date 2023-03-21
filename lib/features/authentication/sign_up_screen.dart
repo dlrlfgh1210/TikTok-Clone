@@ -11,32 +11,21 @@ import 'package:go_router/go_router.dart';
 class SignUpScreen extends StatelessWidget {
   static const routeURL = "/";
   static const routeName = "signUp";
+
   const SignUpScreen({super.key});
 
   void _onLoginTap(BuildContext context) async {
-    context.push(LoginScreen.routeName);
+    context.pushNamed(LoginScreen.routeName);
   }
 
   void _onEmailTap(BuildContext context) {
-    /* Navigator.of(context).push(
-      PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) =>
-            const UsernameScreen(),
-        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          final offsetAnimation = Tween(
-            begin: const Offset(-1, -1),
-            end: Offset.zero,
-          ).animate(animation);
-          return SlideTransition(
-            position: offsetAnimation,
-            child: child,
-          );
-        },
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const UsernameScreen(),
       ),
-    ); */
-    context.pushNamed(UsernameScreen.routeName);
+    );
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -64,14 +53,14 @@ class SignUpScreen extends StatelessWidget {
                     style: TextStyle(
                       fontSize: Sizes.size24,
                       fontWeight: FontWeight.w700,
-                  ),
+                    ),
                   ),
                   Gaps.v20,
                   const Opacity(
                     opacity: 0.7,
                     child: Text(
                       "Create a profile, follow other accounts, make your own videos, and more.",
-                      style:  TextStyle(
+                      style: TextStyle(
                         fontSize: Sizes.size16,
                       ),
                       textAlign: TextAlign.center,

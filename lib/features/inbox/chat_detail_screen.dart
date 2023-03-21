@@ -5,7 +5,15 @@ import 'package:flutter_tiktok/utils.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ChatDetailScreen extends StatefulWidget {
-  const ChatDetailScreen({super.key});
+  static const String routeName = "chatDetail";
+  static const String routeURL = ":chatId";
+
+  final String chatId;
+
+  const ChatDetailScreen({
+    super.key,
+    required this.chatId,
+  });
 
   @override
   State<ChatDetailScreen> createState() => _ChatDetailScreen();
@@ -58,8 +66,7 @@ class _ChatDetailScreen extends State<ChatDetailScreen> {
             children: [
               const CircleAvatar(
                 radius: Sizes.size24,
-                foregroundImage: AssetImage(
-                    "assets/images/jamin.jpg"),
+                foregroundImage: AssetImage("assets/images/jamin.jpg"),
                 /*child: Text("pengsoo"),*/
               ),
               SizedBox(
@@ -81,9 +88,11 @@ class _ChatDetailScreen extends State<ChatDetailScreen> {
               ),
             ],
           ),
-          title: const Text(
-            "pengsoo",
-            style: TextStyle(fontWeight: FontWeight.w600),
+          title: Text(
+            "pengsoo (${widget.chatId})",
+            style: const TextStyle(
+              fontWeight: FontWeight.w600,
+            ),
           ),
           subtitle: const Text("Active now"),
           trailing: const Row(
@@ -151,7 +160,8 @@ class _ChatDetailScreen extends State<ChatDetailScreen> {
               bottom: 0,
               width: MediaQuery.of(context).size.width,
               child: Container(
-                color: isDarkMode(context) ? Colors.black : Colors.grey.shade100,
+                color:
+                    isDarkMode(context) ? Colors.black : Colors.grey.shade100,
                 child: Row(
                   children: [
                     Expanded(
