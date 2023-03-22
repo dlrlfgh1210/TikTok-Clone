@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_tiktok/common/widgets/video_config/video_config.dart';
 import 'package:flutter_tiktok/constants/gaps.dart';
 import 'package:flutter_tiktok/constants/sizes.dart';
 import 'package:flutter_tiktok/features/videos/widgets/video_button.dart';
@@ -32,6 +33,8 @@ class _VideoPostState extends State<VideoPost>
   late final AnimationController _animationController;
 
   bool _isPaused = false;
+
+  bool _autoMute = videoConfig.autoMute;
 
   void _onVideoChange() {
     if (_videoPlayerController.value.isInitialized) {
@@ -66,6 +69,12 @@ class _VideoPostState extends State<VideoPost>
       value: 1.5,
       duration: _animationDuration,
     );
+
+    videoConfig.addListener(() {
+      setState(() {
+        _autoMute = videoConfig.autoMute;
+      });
+    });
   }
 
   @override
@@ -157,7 +166,20 @@ class _VideoPostState extends State<VideoPost>
               ),
             ),
           ),
-          const Positioned(
+          Positioned(
+            left: 20,
+            top: 40,
+            child: IconButton(
+              icon: FaIcon(
+                _autoMute
+                ? FontAwesomeIcons.volumeOff
+                : FontAwesomeIcons.volumeHigh,
+                color: Colors.white,
+              ),
+              onPressed: videoConfig.toggleAutoMute,
+            ),
+          ),
+          Positioned(
             bottom: 20,
             left: 10,
             child: Column(
