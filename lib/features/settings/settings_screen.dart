@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tiktok/common/widgets/video_config/video_config.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -28,16 +29,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
       ),
       body: ListView(
         children: [
-          ValueListenableBuilder(
-            valueListenable: videoConfig,
-            builder: (context, value, child) => SwitchListTile.adaptive(
-              value: value,
-              onChanged: (value) {
-                    videoConfig.value = !videoConfig.value;
-                  },
-                title: const Text("Mute video"),
-                subtitle: const Text("Videos will be muted by default."),
-              ),
+          SwitchListTile.adaptive(
+            value: context.watch<VideoConfig>().isMuted,
+            onChanged: (value) => context.read<VideoConfig>().toggleIsMuted(),
+            title: const Text("Aute Mute"),
+            subtitle: const Text("Videos muted by default."),
           ),
           SwitchListTile.adaptive(
             value: _notifications,
@@ -91,22 +87,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
             onTap: () {
               showCupertinoDialog(
                 context: context,
-                builder: (context) =>
-                    CupertinoAlertDialog(
-                      title: const Text("Are you sure?"),
-                      content: const Text("Plx dont go"),
-                      actions: [
-                        CupertinoDialogAction(
-                          onPressed: () => Navigator.of(context).pop(),
-                          child: const Text("No"),
-                        ),
-                        CupertinoDialogAction(
-                          onPressed: () => Navigator.of(context).pop(),
-                          isDefaultAction: true,
-                          child: const Text("Yes"),
-                        ),
-                      ],
+                builder: (context) => CupertinoAlertDialog(
+                  title: const Text("Are you sure?"),
+                  content: const Text("Plx dont go"),
+                  actions: [
+                    CupertinoDialogAction(
+                      onPressed: () => Navigator.of(context).pop(),
+                      child: const Text("No"),
                     ),
+                    CupertinoDialogAction(
+                      onPressed: () => Navigator.of(context).pop(),
+                      isDefaultAction: true,
+                      child: const Text("Yes"),
+                    ),
+                  ],
+                ),
               );
             },
           ),
@@ -116,22 +111,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
             onTap: () {
               showDialog(
                 context: context,
-                builder: (context) =>
-                    AlertDialog(
-                      icon: const FaIcon(FontAwesomeIcons.skull),
-                      title: const Text("Are you sure?"),
-                      content: const Text("Plx dont go"),
-                      actions: [
-                        IconButton(
-                          onPressed: () => Navigator.of(context).pop(),
-                          icon: const FaIcon(FontAwesomeIcons.car),
-                        ),
-                        TextButton(
-                          onPressed: () => Navigator.of(context).pop(),
-                          child: const Text("Yes"),
-                        ),
-                      ],
+                builder: (context) => AlertDialog(
+                  icon: const FaIcon(FontAwesomeIcons.skull),
+                  title: const Text("Are you sure?"),
+                  content: const Text("Plx dont go"),
+                  actions: [
+                    IconButton(
+                      onPressed: () => Navigator.of(context).pop(),
+                      icon: const FaIcon(FontAwesomeIcons.car),
                     ),
+                    TextButton(
+                      onPressed: () => Navigator.of(context).pop(),
+                      child: const Text("Yes"),
+                    ),
+                  ],
+                ),
               );
             },
           ),
@@ -140,23 +134,23 @@ class _SettingsScreenState extends State<SettingsScreen> {
             textColor: Colors.red,
             onTap: () {
               showCupertinoModalPopup(
-                  context: context,
-                  builder: (context) => CupertinoActionSheet(
-                    title: const Text("Are you sure?"),
-                    message: const Text("Please dooooont gooooo"),
-                    actions: [
-                      CupertinoActionSheetAction(
-                          isDefaultAction: true,
-                          onPressed: () => Navigator.of(context).pop(),
-                          child: const Text("Not log out"),
-                      ),
-                      CupertinoActionSheetAction(
-                        isDestructiveAction: true,
-                        onPressed: () => Navigator.of(context).pop(),
-                        child: const Text("Yes plz."),
-                      )
-                    ],
-                  ),
+                context: context,
+                builder: (context) => CupertinoActionSheet(
+                  title: const Text("Are you sure?"),
+                  message: const Text("Please dooooont gooooo"),
+                  actions: [
+                    CupertinoActionSheetAction(
+                      isDefaultAction: true,
+                      onPressed: () => Navigator.of(context).pop(),
+                      child: const Text("Not log out"),
+                    ),
+                    CupertinoActionSheetAction(
+                      isDestructiveAction: true,
+                      onPressed: () => Navigator.of(context).pop(),
+                      child: const Text("Yes plz."),
+                    )
+                  ],
+                ),
               );
             },
           ),
