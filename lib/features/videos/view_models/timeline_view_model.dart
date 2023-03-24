@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_tiktok/features/videos/models/video_model.dart';
 
-
 class TimelineViewModel extends AsyncNotifier<List<VideoModel>> {
   List<VideoModel> _list = [];
 
