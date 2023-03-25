@@ -1,14 +1,20 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_tiktok/constants/sizes.dart';
 import 'package:flutter_tiktok/features/videos/repos/playback_config_repo.dart';
 import 'package:flutter_tiktok/features/videos/view_models/playback_config_vm.dart';
+import 'package:flutter_tiktok/firebase_options.dart';
 import 'package:flutter_tiktok/router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   await SystemChrome.setPreferredOrientations(
     [
