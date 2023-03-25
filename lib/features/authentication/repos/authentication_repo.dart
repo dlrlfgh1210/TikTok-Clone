@@ -8,12 +8,23 @@ class AuthenticationRepository {
 
   User? get user => _firebaseAuth.currentUser;
 
-  Future<void> signUp(String email, String password) async {
+  Stream<User?> authStateChanges() => _firebaseAuth.authStateChanges();
+
+  Future<void> emailSignUp(String email, String password) async {
     await _firebaseAuth.createUserWithEmailAndPassword(
       email: email,
       password: password,
     );
   }
+
+  Future<void> signOut() async {
+    await _firebaseAuth.signOut();
+  }
 }
 
 final autoRepo = Provider((ref) => AuthenticationRepository());
+
+final authState = StreamProvider((ref) {
+  final repo = ref.read(autoRepo);
+  return repo.authStateChanges();
+});

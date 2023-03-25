@@ -15,7 +15,7 @@ class SignUpViewModel extends AsyncNotifier<void> {
     state = const AsyncValue.loading();
     final form = ref.read(signUpForm);
     state = await AsyncValue.guard(
-            () async => await _autoRepo.signUp(
+            () async => await _autoRepo.emailSignUp(
               form["email"],
               form["password"],
             ),
