@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tiktok/constants/gaps.dart';
 import 'package:flutter_tiktok/constants/sizes.dart';
 import 'package:flutter_tiktok/features/settings/settings_screen.dart';
-import 'package:flutter_tiktok/features/users/widgets/persistent_tab_bar.dart';
+import 'package:flutter_tiktok/features/users/views/widgets/persistent_tab_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class UserProfileScreen extends StatefulWidget {

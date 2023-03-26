@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_tiktok/common/widgets/main_navigation/main_navigation_screen.dart';
-import 'package:flutter_tiktok/features/authentication/login_screen.dart';
+import 'package:flutter_tiktok/features/authentication/views/login_screen.dart';
 import 'package:flutter_tiktok/features/authentication/repos/authentication_repo.dart';
-import 'package:flutter_tiktok/features/authentication/sign_up_screen.dart';
+import 'package:flutter_tiktok/features/authentication/views/sign_up_screen.dart';
 import 'package:flutter_tiktok/features/inbox/activity_screen.dart';
 import 'package:flutter_tiktok/features/inbox/chat_detail_screen.dart';
 import 'package:flutter_tiktok/features/inbox/chats_screen.dart';

@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_tiktok/constants/gaps.dart';
 import 'package:flutter_tiktok/constants/sizes.dart';
-import 'package:flutter_tiktok/features/authentication/password_screen.dart';
+import 'package:flutter_tiktok/features/authentication/views/password_screen.dart';
 import 'package:flutter_tiktok/features/authentication/view_models/sign_up_view_model.dart';
-import 'package:flutter_tiktok/features/authentication/widgets/form_button.dart';
+import 'package:flutter_tiktok/features/authentication/views/widgets/form_button.dart';
+
 
 class EmailScreenArgs {
   final String username;
