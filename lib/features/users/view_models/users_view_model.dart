@@ -7,16 +7,17 @@ import 'package:flutter_tiktok/features/users/models/user_profile_model.dart';
 import 'package:flutter_tiktok/features/users/repos/user_repo.dart';
 
 class UsersViewModel extends AsyncNotifier<UserProfileModel> {
-  late final UserRepository _userRepository;
+  late final UserRepository _usersRepository;
   late final AuthenticationRepository _authenticationRepository;
 
   @override
   FutureOr<UserProfileModel> build() async {
-    _userRepository = ref.read(userRepo);
+
+    _usersRepository = ref.read(userRepo);
     _authenticationRepository = ref.read(autoRepo);
 
     if (_authenticationRepository.isLoggedIn) {
-      final profile = await _userRepository
+      final profile = await _usersRepository
           .findProfile(_authenticationRepository.user!.uid);
       if (profile != null) {
         return UserProfileModel.fromJson(profile);
@@ -36,12 +37,19 @@ class UsersViewModel extends AsyncNotifier<UserProfileModel> {
       email: credential.user!.email ?? "anon@anon.com",
       uid: credential.user!.uid,
       name: credential.user!.displayName ?? "Anon",
+      hasAvatar: false,
     );
-    await _userRepository.createProfile(profile);
+    await _usersRepository.createProfile(profile);
     state = AsyncValue.data(profile);
+  }
+  
+  Future<void> onAvatarUpload() async {
+    if (state.value == null) return;
+    state = AsyncValue.data(state.value!.copyWith(hasAvatar: true));
+    await _usersRepository.updateUser(state.value!.uid, {"hasAvatar": true});
   }
 }
 
 final usersProvider = AsyncNotifierProvider<UsersViewModel, UserProfileModel>(
-      () => UsersViewModel(),
+  () => UsersViewModel(),
 );
