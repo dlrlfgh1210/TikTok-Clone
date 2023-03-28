@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_tiktok/constants/gaps.dart';
 import 'package:flutter_tiktok/constants/sizes.dart';
+import 'package:flutter_tiktok/features/videos/models/video_model.dart';
 import 'package:flutter_tiktok/features/videos/view_models/playback_config_vm.dart';
 import 'package:flutter_tiktok/features/videos/views/widgets/video_button.dart';
 import 'package:flutter_tiktok/features/videos/views/widgets/video_comments.dart';
@@ -12,11 +13,13 @@ import 'package:visibility_detector/visibility_detector.dart';
 
 class VideoPost extends ConsumerStatefulWidget {
   final Function onVideoFinished;
+  final VideoModel videoData;
 
   final int index;
 
   const VideoPost({
     super.key,
+    required this.videoData,
     required this.onVideoFinished,
     required this.index,
   });
@@ -79,15 +82,15 @@ class VideoPostState extends ConsumerState<VideoPost>
   }
 
   void _onPlaybackConfigChanged() {
-  if (!mounted) return;
+    if (!mounted) return;
 
-  final muted = ref.read(playbackConfigProvider).muted;
-  ref.read(playbackConfigProvider.notifier).setMuted(!muted);
-  if (muted) {
-    _videoPlayerController.setVolume(0);
-  } else {
-    _videoPlayerController.setVolume(1);
-  }
+    final muted = ref.read(playbackConfigProvider).muted;
+    ref.read(playbackConfigProvider.notifier).setMuted(!muted);
+    if (muted) {
+      _videoPlayerController.setVolume(0);
+    } else {
+      _videoPlayerController.setVolume(1);
+    }
   }
 
   void _onVisibilityChanged(VisibilityInfo info) {
@@ -141,8 +144,9 @@ class VideoPostState extends ConsumerState<VideoPost>
           Positioned.fill(
             child: _videoPlayerController.value.isInitialized
                 ? VideoPlayer(_videoPlayerController)
-                : Container(
-                    color: Colors.black,
+                : Image.network(
+                    widget.videoData.thumbnailUrl,
+                    fit: BoxFit.cover,
                   ),
           ),
           Positioned.fill(
@@ -180,22 +184,22 @@ class VideoPostState extends ConsumerState<VideoPost>
             child: IconButton(
               icon: FaIcon(
                 ref.watch(playbackConfigProvider).muted
-                ? FontAwesomeIcons.volumeOff
-                : FontAwesomeIcons.volumeHigh,
+                    ? FontAwesomeIcons.volumeOff
+                    : FontAwesomeIcons.volumeHigh,
                 color: Colors.white,
               ),
               onPressed: _onPlaybackConfigChanged,
             ),
           ),
-          const Positioned(
+          Positioned(
             bottom: 20,
             left: 10,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "@Gilho",
-                  style: TextStyle(
+                  "@${widget.videoData.creator}",
+                  style: const TextStyle(
                     fontSize: Sizes.size20,
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
@@ -203,7 +207,7 @@ class VideoPostState extends ConsumerState<VideoPost>
                 ),
                 Gaps.v10,
                 Text(
-                  "This is my room!!!",
+                  widget.videoData.description,
                   style: TextStyle(
                     fontSize: Sizes.size16,
                     color: Colors.white,
@@ -217,26 +221,26 @@ class VideoPostState extends ConsumerState<VideoPost>
             right: 10,
             child: Column(
               children: [
-                const CircleAvatar(
+                CircleAvatar(
                   radius: 25,
                   backgroundColor: Colors.black,
                   foregroundColor: Colors.white,
-                  foregroundImage: AssetImage(
-                    "assets/images/jamin.jpg",
+                  foregroundImage: NetworkImage(
+                    "https://firebasestorage.googleapis.com/v0/b/tik-tok-clone-dlrlfgh1210.appspot.com/o/avatars%2F${widget.videoData.creatorUid}?alt=media",
                   ),
-                  child: Text("기로"),
+                  child: Text(widget.videoData.creator),
                 ),
                 Gaps.v24,
-                const VideoButton(
+                VideoButton(
                   icon: FontAwesomeIcons.solidHeart,
-                  text: "2.9M",
+                  text: "${widget.videoData.likes}"
                 ),
                 Gaps.v24,
                 GestureDetector(
                   onTap: () => _onCommentsTap(context),
-                  child: const VideoButton(
+                  child: VideoButton(
                     icon: FontAwesomeIcons.solidComment,
-                    text: "33K",
+                    text: "${widget.videoData.comments}",
                   ),
                 ),
                 Gaps.v24,

@@ -105,7 +105,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                         borderRadius: BorderRadius.circular(Sizes.size4),
                       ),
                       child: AspectRatio(
-                        aspectRatio: 9 / 16,
+                        aspectRatio: 9 / 15,
                         child: FadeInImage.assetNetwork(
                           fit: BoxFit.cover,
                           placeholder: "assets/images/jamin.jpg",
